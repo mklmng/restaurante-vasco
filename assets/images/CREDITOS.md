@@ -38,7 +38,7 @@ Página de origen: Mesa preparada para la cena con copas y botella
 Licencia: Uso gratuito bajo la Licencia Unsplash
 
 
-Archivo: verduras.jpg
+Archivo: huerta.jpg
 Autora: Zoe Richardson.
 Plataforma: Unsplash.
 Página de origen: https://unsplash.com/es/fotos/cesta-de-cosecha-con-tomates-y-verduras-hmoDcZnB7uw
@@ -52,20 +52,20 @@ Página de origen: https://unsplash.com/es/fotos/un-pescado-y-verduras-en-una-pi
 Licencia exacta publicada: Uso gratuito bajo la Licencia Unsplash
 
 
-Archivo: Amaia.jpg
+Archivo: amaia.jpg
 Autor: RDNE Stock project
 Plataforma: Unsplash.
 Página de origen: https://www.pexels.com/photo/a-woman-wearing-brown-apron-leaning-on-a-wall-with-crossed-arms-5737830/
 Licencia exacta publicada: Free
 
 
-Archivo: Iker.jpg
+Archivo: iker.jpg
 Autor: Kuiyibo Campos
 Plataforma: Unsplash.
 Página de origen: https://www.pexels.com/photo/cook-in-a-restaurant-22912101/
 Licencia exacta publicada: Free
 
-Archivo: Nerea.jpg
+Archivo: nerea.jpg
 Autor: Angela Chacón
 Plataforma: Unsplash.
 Página de origen: https://www.pexels.com/photo/woman-decorating-the-cake-26598639/

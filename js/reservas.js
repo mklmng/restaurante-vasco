@@ -9,10 +9,10 @@
  * punto donde conectarlo es showResult().
  *
  * Mejora progresiva:
- *   - Sin JavaScript el formulario usa la validación nativa del navegador
- *     (required, type="email", maxlength...). El envío recarga la página en
- *     #resultado, que muestra por CSS (:target) el aviso de que no se ha enviado
- *     nada. Los campos no llevan atributo name a propósito: así no viajan datos
+ *   - El botón de envío permanece desactivado hasta que la validación propia
+ *     está lista. Sin JavaScript no se puede comprobar la fecha dinámica ni
+ *     preparar el resumen, así que el formulario explica esa limitación.
+ *     Los campos no llevan atributo name a propósito: así no viajan datos
  *     personales en la URL.
  *   - Con JavaScript se desactiva la validación nativa (novalidate) para mostrar
  *     mensajes propios, comprensibles y asociados a cada campo.
@@ -31,7 +31,7 @@
   var CONFIG = {
     maxGuests: 8,
     minDaysAhead: 1,
-    maxDaysAhead: 180,
+    maxMonthsAhead: 6,
     maxNotesLength: 500,
     closedWeekday: 1,   // Date.getDay(): 0 domingo, 1 lunes...
     lunchOnlyWeekday: 0,
@@ -63,6 +63,14 @@
     return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
   }
 
+  function addMonths(date, months) {
+    var day = date.getDate();
+    var result = new Date(date.getFullYear(), date.getMonth() + months, 1);
+    var lastDay = new Date(result.getFullYear(), result.getMonth() + 1, 0).getDate();
+    result.setDate(Math.min(day, lastDay));
+    return result;
+  }
+
   function toISODate(date) {
     var month = String(date.getMonth() + 1);
     var day = String(date.getDate());
@@ -80,7 +88,24 @@
     email: function (value) {
       var text = value.trim();
       if (!text) { return 'Escribe tu correo electrónico.'; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
+      var parts = text.split('@');
+      if (parts.length !== 2) {
+        return 'El correo no parece válido. Debe tener una forma como nombre@ejemplo.com.';
+      }
+      var local = parts[0];
+      var domain = parts[1];
+      var labels = domain.split('.');
+      if (
+        !local ||
+        local.charAt(0) === '.' ||
+        local.charAt(local.length - 1) === '.' ||
+        local.indexOf('..') !== -1 ||
+        !/^[^\s@]+$/.test(local) ||
+        labels.length < 2 ||
+        labels.some(function (label) {
+          return !/^[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$/.test(label);
+        })
+      ) {
         return 'El correo no parece válido. Debe tener una forma como nombre@ejemplo.com.';
       }
       return '';
@@ -106,8 +131,8 @@
       if (date < addDays(today, CONFIG.minDaysAhead)) {
         return 'Elige una fecha a partir de mañana. Necesitamos tiempo para responder.';
       }
-      if (date > addDays(today, CONFIG.maxDaysAhead)) {
-        return 'Solo aceptamos solicitudes con un máximo de 6 meses de antelación.';
+      if (date > addMonths(today, CONFIG.maxMonthsAhead)) {
+        return 'Solo aceptamos solicitudes con un máximo de 6 meses naturales de antelación.';
       }
       if (date.getDay() === CONFIG.closedWeekday) {
         return 'Los lunes el restaurante está cerrado. Elige otro día.';
@@ -149,7 +174,12 @@
 
   /* Exportación para pruebas en Node; en el navegador no existe "module". */
   if (typeof module === 'object' && module && module.exports) {
-    module.exports = { CONFIG: CONFIG, parseISODate: parseISODate, validateValue: validateValue };
+    module.exports = {
+      CONFIG: CONFIG,
+      addMonths: addMonths,
+      parseISODate: parseISODate,
+      validateValue: validateValue
+    };
   }
 
   if (typeof document === 'undefined') { return; }
@@ -167,6 +197,8 @@
   var resultDataBox = document.getElementById('resultado-datos-caja');
   var editButton = document.getElementById('resultado-modificar');
   var resetButton = document.getElementById('resultado-reiniciar');
+  var submitButton = form.querySelector('[type="submit"]');
+  var jsRequiredNote = document.getElementById('form-js-required');
   var attempted = false;
 
   function field(id) { return document.getElementById(id); }
@@ -323,11 +355,15 @@
   }
 
   function init() {
+    if (!submitButton || !jsRequiredNote) {
+      throw new Error('Falta el botón de envío o el aviso de JavaScript del formulario.');
+    }
+
     // Fechas permitidas en el selector nativo (la validación propia es la que manda).
     var today = startOfDay(new Date());
     var dateField = field('fecha');
     dateField.setAttribute('min', toISODate(addDays(today, CONFIG.minDaysAhead)));
-    dateField.setAttribute('max', toISODate(addDays(today, CONFIG.maxDaysAhead)));
+    dateField.setAttribute('max', toISODate(addMonths(today, CONFIG.maxMonthsAhead)));
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -377,6 +413,8 @@
 
     // Validación propia solo cuando todo lo anterior se ha enlazado sin errores.
     form.noValidate = true;
+    jsRequiredNote.hidden = true;
+    submitButton.disabled = false;
   }
 
   try {

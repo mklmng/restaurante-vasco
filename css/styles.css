@@ -866,6 +866,10 @@ body {
     column-gap: var(--space-m);
   }
 
+  .gallery .media {
+    --media-ratio: 3 / 4;
+  }
+
   .gallery__item {
     margin-block-end: var(--space-l);
     break-inside: avoid;
