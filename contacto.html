@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto y reservas | Oihan Sukaldea</title>
+  <meta name="description" content="Prepara una solicitud de mesa en Oihan Sukaldea, restaurante ficticio de cocina vasca contemporánea. Una solicitud no es una reserva confirmada.">
+  <meta name="theme-color" content="#f2ede2">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Contacto y reservas | Oihan Sukaldea">
+  <meta property="og:description" content="Solicitud de mesa y datos de contacto de un restaurante ficticio. No es una reserva confirmada.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/ui/favicon.svg">
+  <script>document.documentElement.className = 'js';</script>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer onerror="document.documentElement.className = 'no-js'"></script>
+  <script src="js/reservas.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="site-header__inner container">
+      <a class="site-header__brand" href="index.html">
+        <img class="site-header__mark" src="assets/images/ui/logo.svg" alt="" width="32" height="32">
+        <span lang="eu">Oihan Sukaldea</span>
+      </a>
+      <nav class="site-nav" aria-label="Principal">
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+          <span class="site-nav__toggle-icon" aria-hidden="true"></span>
+          <span>Menú</span>
+        </button>
+        <ul class="site-nav__list" id="menu-principal" role="list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Inicio</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="cocina.html">La cocina</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="galeria.html">Galería</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="sobre-nosotros.html">Sobre nosotros</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacto.html" aria-current="page">Contacto y reservas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <header class="page-header">
+      <div class="container stack stack--m">
+        <h1 class="page-header__title">Contacto y reservas</h1>
+        <p class="lede">Prepara una solicitud de mesa y consulta cómo encontrarnos.</p>
+      </div>
+    </header>
+
+    <section class="section section--tight container" aria-label="Aviso importante sobre las reservas">
+      <div class="notice">
+        <p><span class="notice__title">Esto no reserva ninguna mesa.</span> Oihan Sukaldea es un restaurante ficticio y esta web no tiene ningún servicio que reciba o confirme solicitudes. El formulario solo comprueba tus datos en el navegador y no envía nada. Todos los datos de contacto son provisionales.</p>
+      </div>
+    </section>
+
+    <section class="section" id="reserva" aria-labelledby="titulo-reserva">
+      <div class="container stack stack--l">
+        <div class="stack stack--xs">
+          <h2 id="titulo-reserva">Solicitar una mesa</h2>
+          <p>Rellena los datos para preparar una solicitud. Una solicitud <strong>no es una reserva confirmada</strong>: la mesa solo quedaría asegurada cuando el restaurante responda, y hoy no existe ese servicio.</p>
+        </div>
+
+        <form class="form" id="form-reserva" action="contacto.html#resultado" method="get" aria-labelledby="titulo-reserva">
+          <div class="error-summary" id="resumen-errores" role="group" aria-labelledby="resumen-titulo" tabindex="-1" hidden>
+            <h3 class="error-summary__title" id="resumen-titulo">Hay datos por corregir</h3>
+            <ul class="error-summary__list" role="list"></ul>
+          </div>
+
+          <p class="form__note">Los campos indicados como «obligatorio» hay que rellenarlos. Los demás son opcionales.</p>
+
+          <fieldset class="form__group">
+            <legend class="form__legend">Tus datos</legend>
+            <div class="field">
+              <label class="field__label" for="nombre">Nombre completo <span class="field__flag">(obligatorio)</span></label>
+              <p class="field__hint" id="nombre-ayuda">Como quieres que te llamemos.</p>
+              <input class="field__control" id="nombre" type="text" autocomplete="name" required minlength="2" aria-describedby="nombre-ayuda nombre-error">
+              <p class="field__error" id="nombre-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="email">Correo electrónico <span class="field__flag">(obligatorio)</span></label>
+              <p class="field__hint" id="email-ayuda">Aquí te responderíamos. Ejemplo: nombre@ejemplo.com.</p>
+              <input class="field__control" id="email" type="email" autocomplete="email" spellcheck="false" required aria-describedby="email-ayuda email-error">
+              <p class="field__error" id="email-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="telefono">Teléfono <span class="field__flag">(opcional)</span></label>
+              <p class="field__hint" id="telefono-ayuda">Solo para confirmar la solicitud si hiciera falta. Ejemplo: 600 000 000.</p>
+              <input class="field__control" id="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="telefono-ayuda telefono-error">
+              <p class="field__error" id="telefono-error" hidden></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="form__group">
+            <legend class="form__legend">Tu visita</legend>
+            <div class="field">
+              <label class="field__label" for="fecha">Fecha <span class="field__flag">(obligatorio)</span></label>
+              <p class="field__hint" id="fecha-ayuda">De martes a domingo, a partir de mañana. Los lunes estamos cerrados. Si tu navegador no muestra un calendario, escríbela como aaaa-mm-dd.</p>
+              <input class="field__control" id="fecha" type="date" pattern="\d{4}-\d{2}-\d{2}" autocomplete="off" required aria-describedby="fecha-ayuda fecha-error">
+              <p class="field__error" id="fecha-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="hora">Hora <span class="field__flag">(obligatorio)</span></label>
+              <p class="field__hint" id="hora-ayuda">Comida de 13:30 a 15:00 y cena de 20:30 a 22:00. Los domingos solo hay comida. Horarios provisionales.</p>
+              <select class="field__control" id="hora" autocomplete="off" required aria-describedby="hora-ayuda hora-error">
+                <option value="">Elige una hora</option>
+                <optgroup label="Comida">
+                  <option value="13:30">13:30</option>
+                  <option value="14:00">14:00</option>
+                  <option value="14:30">14:30</option>
+                  <option value="15:00">15:00</option>
+                </optgroup>
+                <optgroup label="Cena">
+                  <option value="20:30">20:30</option>
+                  <option value="21:00">21:00</option>
+                  <option value="21:30">21:30</option>
+                  <option value="22:00">22:00</option>
+                </optgroup>
+              </select>
+              <p class="field__error" id="hora-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="comensales">Número de comensales <span class="field__flag">(obligatorio)</span></label>
+              <p class="field__hint" id="comensales-ayuda">De 1 a 8 personas. Para grupos más grandes, consúltanos antes.</p>
+              <input class="field__control" id="comensales" type="number" inputmode="numeric" min="1" max="8" step="1" autocomplete="off" required aria-describedby="comensales-ayuda comensales-error">
+              <p class="field__error" id="comensales-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="observaciones">Observaciones <span class="field__flag">(opcional)</span></label>
+              <p class="field__hint" id="observaciones-ayuda">Celebraciones, dietas, sillita para un bebé… Máximo 500 caracteres. Si tienes alergias, indícalo y confírmalo siempre con el personal.</p>
+              <textarea class="field__control" id="observaciones" rows="4" maxlength="500" autocomplete="off" aria-describedby="observaciones-ayuda observaciones-error"></textarea>
+              <p class="field__error" id="observaciones-error" hidden></p>
+            </div>
+          </fieldset>
+
+          <div class="stack stack--xs">
+            <p><button class="button button--primary" type="submit">Preparar solicitud</button></p>
+            <p class="form__note">No se envía ni se reserva nada. Tus datos no salen de tu navegador y desaparecen al cerrar o recargar la página.</p>
+          </div>
+        </form>
+
+        <section class="request-result stack stack--m" id="resultado" tabindex="-1" aria-labelledby="resultado-titulo">
+          <h3 id="resultado-titulo">Solicitud no enviada</h3>
+          <p><strong>Esto no es una reserva confirmada.</strong> Este sitio es una demostración y no tiene ningún servicio que reciba ni confirme solicitudes. No se ha enviado nada y tus datos no han salido de tu navegador.</p>
+          <p>Cuando exista un restaurante real, este formulario enviaría la solicitud y recibirías una respuesta con la confirmación.</p>
+          <div id="resultado-datos-caja" hidden>
+            <h4>Los datos que habías escrito</h4>
+            <dl class="facts" id="resultado-datos"></dl>
+          </div>
+          <div class="cluster">
+            <button class="button button--secondary" type="button" id="resultado-modificar" hidden>Modificar los datos</button>
+            <button class="button button--secondary" type="button" id="resultado-reiniciar" hidden>Borrar y empezar de nuevo</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section surface surface--sand" aria-labelledby="titulo-encontrarnos">
+      <div class="container split">
+        <div class="stack stack--m">
+          <h2 id="titulo-encontrarnos">Cómo encontrarnos</h2>
+          <p>Todos estos datos son ficticios y se sustituirán por los reales.</p>
+        </div>
+        <dl class="facts">
+          <div class="facts__row">
+            <dt class="facts__term">Dirección</dt>
+            <dd class="facts__desc"><address>Calle de Muestra, 1<br>00000 Ciudad de ejemplo</address></dd>
+          </div>
+          <div class="facts__row">
+            <dt class="facts__term">Teléfono</dt>
+            <dd class="facts__desc">000 000 000</dd>
+          </div>
+          <div class="facts__row">
+            <dt class="facts__term">Correo</dt>
+            <dd class="facts__desc">reservas@ejemplo.invalid</dd>
+          </div>
+          <div class="facts__row">
+            <dt class="facts__term">Horario</dt>
+            <dd class="facts__desc">Martes a sábado, de 13:30 a 15:30 y de 20:30 a 22:30. Domingo, de 13:30 a 16:00. Lunes cerrado.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer surface surface--forest">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="stack stack--2xs">
+          <h2 class="site-footer__heading" lang="eu">Oihan Sukaldea</h2>
+          <p>Cocina vasca contemporánea. Proyecto ficticio con datos provisionales.</p>
+        </div>
+        <nav aria-labelledby="pie-paginas">
+          <h2 class="site-footer__heading" id="pie-paginas">Páginas</h2>
+          <ul class="site-footer__list" role="list">
+            <li><a class="site-footer__link" href="index.html">Inicio</a></li>
+            <li><a class="site-footer__link" href="cocina.html">La cocina</a></li>
+            <li><a class="site-footer__link" href="galeria.html">Galería</a></li>
+            <li><a class="site-footer__link" href="sobre-nosotros.html">Sobre nosotros</a></li>
+            <li><a class="site-footer__link" href="contacto.html" aria-current="page">Contacto y reservas</a></li>
+          </ul>
+        </nav>
+        <div class="stack stack--2xs">
+          <h2 class="site-footer__heading">Contacto (datos ficticios)</h2>
+          <address>Calle de Muestra, 1<br>00000 Ciudad de ejemplo</address>
+          <p>Teléfono: 000 000 000</p>
+          <p>Correo: reservas@ejemplo.invalid</p>
+        </div>
+      </div>
+      <p class="site-footer__legal">© 2026 Oihan Sukaldea. Proyecto de demostración sin actividad comercial. Los créditos de cada fotografía se indican junto a ella.</p>
+    </div>
+  </footer>
+</body>
+</html>

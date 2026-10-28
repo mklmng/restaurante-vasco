@@ -1,0 +1,189 @@
+/*!
+ * reset.css · Oihan Sukaldea (restaurante ficticio, datos provisionales)
+ *
+ * Carga: este archivo va SIEMPRE antes que styles.css.
+ *
+ * Estructura:
+ *   A. Orden de capas (se repite en styles.css; es inocuo).
+ *   B. Línea base SIN capa. Es lo único que verá un navegador que no entienda
+ *      @layer (anterior a 2022). Solo contiene reglas estructurales y seguras:
+ *      no pisan nada porque no fijan colores, alturas ni anchuras mínimas.
+ *   C. Reset moderno dentro de @layer reset.
+ *
+ * Alternativas para navegadores antiguos incluidas aquí:
+ *   - prefijos -webkit-/-moz- de text-size-adjust y box-sizing,
+ *   - 100vh seguido de 100dvh (el navegador descarta el valor que no entiende),
+ *   - word-wrap como alias de overflow-wrap,
+ *   - ::-moz-focus-inner para botones en Firefox antiguo.
+ */
+
+/* A. Orden de capas (la última capa gana) */
+@layer reset, base, layout, components, utilities;
+
+/* B. Línea base sin capa */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+/* C. Reset moderno */
+@layer reset {
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd,
+  pre {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+    text-wrap: balance;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  figcaption,
+  blockquote {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Las listas conservan viñetas salvo que lleven role="list" explícito.
+     Se declara el rol en el HTML porque Safari/VoiceOver deja de anunciar
+     como lista un <ul> con list-style: none. */
+  ul[role="list"],
+  ol[role="list"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  /* Si una imagen no carga, se ve su texto alternativo en cursiva. */
+  img {
+    font-style: italic;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+    color: inherit;
+  }
+
+  button,
+  [type="button"],
+  [type="submit"],
+  [type="reset"] {
+    touch-action: manipulation; /* quita el retardo del doble toque; el zoom por pellizco sigue activo */
+  }
+
+  button::-moz-focus-inner,
+  [type="button"]::-moz-focus-inner,
+  [type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  textarea:not([rows]) {
+    min-height: 8em;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-inline-size: 0;
+  }
+
+  legend {
+    padding: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  iframe {
+    border: 0;
+  }
+
+  :target {
+    scroll-margin-block: 2ex;
+  }
+
+  /* !important dentro de una capa temprana gana a cualquier display posterior. */
+  [hidden]:not([hidden="until-found"]) {
+    display: none !important;
+  }
+}
